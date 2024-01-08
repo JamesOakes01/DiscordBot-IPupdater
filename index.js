@@ -3,6 +3,15 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
+const { channel } = require('node:diagnostics_channel');
+
+//axios
+const axios = require('axios');
+const { send } = require('node:process');
+const { data } = require('./commands/utility/ping');
+
+//customstuff
+
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
@@ -39,10 +48,37 @@ client.on('ready', () => {
 
 
     console.log(`Logged in as ${client.user.tag}!`);
+	//console.log(axios.get('ipinfo.io/ip'))
+	//console.log(fetch('https://ipinfo.io/ip'));
+	//setInterval(getData, 10000);
+	getData()
     
-   
-   
-    });
+	//client.channels.cache.get('1080390380001951798').send('Hello here!');
+});
+
+const getData = async () => {
+    const res = await fetch('https://ipinfo.io/ip')
+    const data = await res.text()
+
+    console.log(data)
+	//console.log(fs.readFile('CurrentIP.txt'))
+	const currentip1 = fs.readFileSync('CurrentIP.txt', 'utf8')
+	if (data != currentip1) {
+		console.log("The IP has changed. New ip is \n" + data + "\nWhile old IP was " + currentip1)
+		fs.writeFileSync('CurrentIP.txt', data)
+		sendMessage(data)
+	}
+	console.log(currentip1)
+	//return(data)
+}
+
+function getIP() {
+	
+}
+
+function sendMessage (messages){
+	client.channels.cache.get('1080390380001951798').send("The new server IP is:\n" + messages);
+}
 
 client.on(Events.InteractionCreate, async interaction => {
 	
