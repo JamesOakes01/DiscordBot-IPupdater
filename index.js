@@ -45,14 +45,11 @@ client.on(Events.InteractionCreate, interaction => {
 */
 
 client.on('ready', () => {
-
-
     console.log(`Logged in as ${client.user.tag}!`);
 	//console.log(axios.get('ipinfo.io/ip'))
 	//console.log(fetch('https://ipinfo.io/ip'));
 	getData()
 	setInterval(getData, 300000);
-	
     
 	//client.channels.cache.get('1080390380001951798').send('Hello here!');
 });
