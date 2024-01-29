@@ -75,7 +75,7 @@ function getIP() {
 }
 
 function sendMessage (messages){
-	client.channels.cache.get('1080390380001951798').send("The new server IP is:\n" + messages);
+	client.channels.cache.get('1193747828175020065').send("The new server IP is:\n" + messages);
 }
 
 client.on(Events.InteractionCreate, async interaction => {
